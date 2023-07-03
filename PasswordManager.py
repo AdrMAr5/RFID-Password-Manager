@@ -1,9 +1,35 @@
-class PasswordManager:
-    def __init__(self, db):
-        self.db = db
+import time
 
-    def save_new_password(self):
-        pass
+import serial
+from Database import DatabaseClient
+
+
+class PasswordManager:
+    def __init__(self):
+        self.db = DatabaseClient()
+        self.authenticated = False
+
+    def authenticate(self):
+        arduino = serial.Serial(port='COM5', baudrate=9600, timeout=.1)
+        arduino.write(bytearray('R', 'ascii'))
+        start = time.time()
+        print('Przyłóż kartę do czytnika')
+        while time.time() - start < 5000:
+            received = arduino.readline()
+            print(received)
+            if received:
+                break
+
+
+
+
+    def save_new_password(self, domain, pswd):
+        encrypted_pswd = pswd
+        try:
+            self.db.insert_password_record(domain, encrypted_pswd)
+            print('Pomyślnie zapisano')
+        except:
+            print('Nie udało się zapisać do bazy danych')
 
     def pass_key(self):
         pass
