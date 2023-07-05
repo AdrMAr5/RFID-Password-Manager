@@ -1,5 +1,7 @@
 import base64
 import random
+import secrets
+import string
 import time
 from cryptography.fernet import Fernet
 
@@ -54,13 +56,17 @@ class PasswordManager:
         print(f'Domena: {result[0][0]} Hasło: {decrypted_pswd}')
 
     def update_password_for_domain(self, domain, pswd):
-        self.db.update_password(domain, pswd)
+        f = Fernet(base64.urlsafe_b64encode(self.master_key.encode()))
+        encrypted_pswd = f.encrypt(pswd.encode())
+        self.db.update_password(domain, encrypted_pswd)
 
     def remove_password(self, domain):
         self.db.remove_record(domain)
 
-    def generate_random_string(self):
-        pass
+    @staticmethod
+    def generate_random_string(length):
+        st = string.ascii_letters + string.digits + string.punctuation
+        return ''.join(secrets.choice(st) for _ in range(length))
 
     def list_domains(self):
         domains_list = self.db.get_domains()

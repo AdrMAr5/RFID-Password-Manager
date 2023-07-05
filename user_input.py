@@ -8,7 +8,8 @@ class Actions(Enum):
     LIST = 3
     CHANGE = 4
     REMOVE = 5
-    QUIT = 6
+    GENERATE = 6
+    QUIT = 7
 
 
 class InputManager:
@@ -23,7 +24,8 @@ class InputManager:
         print('3. Wylistuj domeny')
         print('4. Zmień hasło')
         print('5. Usuń rekord')
-        print('6. Wyjdź')
+        print('6. Wygeneruj hasło')
+        print('7. Wyjdź')
 
     @staticmethod
     def get_user_action() -> Actions:
@@ -41,6 +43,8 @@ class InputManager:
             case '5':
                 return Actions.REMOVE
             case '6':
+                return Actions.GENERATE
+            case '7':
                 return Actions.QUIT
 
     @staticmethod

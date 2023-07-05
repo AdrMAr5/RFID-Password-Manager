@@ -23,11 +23,14 @@ def main():
             case Actions.LIST:
                 manager.list_domains()
             case Actions.CHANGE:
-                domain = input('Domena: ')
-                manager.update_password_for_domain(domain)
+                domain, pswd = InputManager.get_user_domain_and_pswd()
+                manager.update_password_for_domain(domain, pswd)
             case Actions.REMOVE:
                 domain = input('Domena: ')
                 manager.remove_password(domain)
+            case Actions.GENERATE:
+                length = int(input('Długość hasła: '))
+                print('twoje hasło: ', manager.generate_random_string(length))
             case Actions.QUIT:
                 sys.exit()
 
