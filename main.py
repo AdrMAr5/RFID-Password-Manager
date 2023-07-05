@@ -23,9 +23,11 @@ def main():
             case Actions.LIST:
                 manager.list_domains()
             case Actions.CHANGE:
-                pass
+                domain = input('Domena: ')
+                manager.update_password_for_domain(domain)
             case Actions.REMOVE:
-                pass
+                domain = input('Domena: ')
+                manager.remove_password(domain)
             case Actions.QUIT:
                 sys.exit()
 

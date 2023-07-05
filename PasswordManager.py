@@ -49,13 +49,15 @@ class PasswordManager:
 
     def display_password_for_domain(self, domain):
         result = self.db.get_password_for_domain(domain)
-        print(f'Domena: {result[0][0]} Hasło: {result[0][1]}')
+        f = Fernet(base64.urlsafe_b64encode(self.master_key.encode()))
+        decrypted_pswd = f.decrypt(result[0][1]).decode()
+        print(f'Domena: {result[0][0]} Hasło: {decrypted_pswd}')
 
-    def pass_value(self):
-        pass
+    def update_password_for_domain(self, domain, pswd):
+        self.db.update_password(domain, pswd)
 
-    def get_password(self):
-        pass
+    def remove_password(self, domain):
+        self.db.remove_record(domain)
 
     def generate_random_string(self):
         pass
@@ -66,7 +68,7 @@ class PasswordManager:
             print(domain[0])
 
     def generate_master_key(self, seed):
-        random.seed()
+        random.seed(seed)
         num = random.random()
         sha256 = hashlib.sha256()
         sha256.update(str(num).encode())

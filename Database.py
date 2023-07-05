@@ -29,4 +29,14 @@ class DatabaseClient:
         value = cur.fetchall()
         return value
 
+    def update_password(self, domain, pswd):
+        self.db.execute('UPDATE passwords SET password=? where domain=?', (pswd, domain))
+        self.db.commit()
+
+    def remove_record(self, domain):
+        self.db.execute('DELETE FROM passwords WHERE domain=?', (domain,))
+
+
+db = DatabaseClient()
+db.update_password('google.pl', 'aaaaaaa')
 
