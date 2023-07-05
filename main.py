@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 from user_input import Actions, InputManager
 
 
-from PasswordManager import PasswordManager
+from password_manager import PasswordManager
 
 
 def main():

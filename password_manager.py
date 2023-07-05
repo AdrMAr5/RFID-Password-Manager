@@ -7,7 +7,7 @@ from cryptography.fernet import Fernet
 
 import hashlib
 import serial
-from Database import DatabaseClient
+from database import DatabaseClient
 
 
 class PasswordManager:
