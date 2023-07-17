@@ -80,4 +80,3 @@ class PasswordManager:
         sha256.update(str(num).encode())
         key = sha256.hexdigest()[:32]
         self.master_key = key
-        print(key)
